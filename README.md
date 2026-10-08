@@ -1,6 +1,13 @@
 # Piphi Network Sonoff Lan
 
-Generated PiPhi integration runtime.
+This runtime currently supports a narrow, read-only Sonoff DIY Mode view:
+one single-channel switch's on/off state from the vendor-documented local
+`POST /zeroconf/info` endpoint. Configure a local `host` (the endpoint's port
+defaults to 8081) and the DIY `deviceid`. The device must be in plaintext DIY
+Mode; encrypted and multi-channel variants are not advertised as compatible.
+The bundled widget shows actual reported state and offers details/history,
+without implying that PiPhi can control the relay yet. An unreachable or
+unsupported device reports unavailable rather than a fabricated state.
 
 ## Run locally
 
@@ -37,9 +44,9 @@ excluded with its source, scope, and rationale. Contract tests enforce that
 only implemented entries appear in the manifest, entities, commands, and
 behavior contract.
 
-Model-specific capabilities remain planned until discovery, normalization,
-dispatch, and executable tests exist. This keeps the scaffold honest while
-preserving the complete implementation roadmap.
+The single DIY switch state is implemented. Broader eWeLink models, channel
+negotiation, metering, and controls remain planned until they have executable
+protocol and safety tests.
 
 ## Manifest
 

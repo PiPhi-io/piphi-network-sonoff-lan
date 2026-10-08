@@ -125,6 +125,7 @@
       "entityType": "device",
       "capabilities": [
         "connected",
+        "switch_on",
         "refresh"
       ],
       "targeting": {
