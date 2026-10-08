@@ -23,6 +23,7 @@ CAPABILITIES: dict[str, dict[str, Any]] = {
         "kind": "sensor",
         "unit": "bool"
     },
+    "switch_on": {"kind": "sensor", "unit": "bool"},
     "refresh": {
         "kind": "action"
     }
@@ -31,16 +32,17 @@ CAPABILITIES: dict[str, dict[str, Any]] = {
 COMMANDS: dict[str, dict[str, Any]] = {
     "refresh": {
         "description": "Refresh the device state.",
-        "timeout_ms": 5000
+        "timeout_ms": 12000
     }
 }
 
 CONFIG_SCHEMA: dict[str, Any] = {
     "schema": {
-        "title": "Piphi Network Sonoff Lan Setup",
+        "title": "Sonoff DIY Mode switch",
         "type": "object",
         "required": [
-            "host"
+            "host",
+            "diy_device_id"
         ],
         "properties": {
             "host": {
@@ -51,15 +53,12 @@ CONFIG_SCHEMA: dict[str, Any] = {
                 "type": "string",
                 "title": "Alias"
             },
+            "diy_device_id": {"type": "string", "title": "DIY device ID"},
             "poll_interval_seconds": {
                 "type": "integer",
                 "title": "Poll Interval Seconds",
-                "minimum": 5
+                "minimum": 60
             },
-            "safety_mode": {
-                "type": "string",
-                "title": "Safety Mode"
-            }
         }
     },
     "uiSchema": {
@@ -67,13 +66,11 @@ CONFIG_SCHEMA: dict[str, Any] = {
             "placeholder": "192.168.1.50"
         },
         "alias": {
-            "placeholder": "Office Device"
+            "placeholder": "Sonoff switch"
         },
+        "diy_device_id": {"placeholder": "100000140e"},
         "poll_interval_seconds": {
-            "placeholder": "30"
-        },
-        "safety_mode": {
-            "placeholder": "enabled"
+            "placeholder": "300"
         }
     }
 }
@@ -82,9 +79,10 @@ FALLBACK_ENTITY: dict[str, Any] = {
     "id": "demo-device",
     "name": "Demo Device",
     "device_id": "demo-device",
-    "entity_type": "sensor",
+    "entity_type": "switch",
     "capabilities": [
         "connected",
+        "switch_on",
         "refresh"
     ],
     "available_commands": [

@@ -12,13 +12,24 @@
     {
       "id": "runtime-foundation",
       "status": "implemented",
-      "scope": ["all-configurations"],
+      "scope": ["configured-sonoff-diy-mode-single-switch"],
       "source_refs": ["core_vocabulary"],
-      "reason": "The scaffold implements configuration presence, connectivity state, refresh dispatch, and a normalized state-change event.",
+      "reason": "Connectivity reflects a successful local DIY info request; refresh repeats that read.",
       "state": ["connected"],
       "events": ["runtime.config.applied"],
       "conditions": ["state_matches"],
       "actions": ["refresh"]
+    },
+    {
+      "id": "diy-single-switch",
+      "status": "implemented",
+      "scope": ["sonoff-diy-mode-single-channel-plaintext-switch"],
+      "source_refs": ["sonoff_diy"],
+      "reason": "The documented /zeroconf/info response reports one on/off switch; encrypted and multi-channel variants are not represented.",
+      "state": ["switch_on"],
+      "events": [],
+      "conditions": [],
+      "actions": []
     },
     {
       "id": "relays-and-power",
@@ -26,7 +37,7 @@
       "scope": ["single-channel", "multi-channel", "pow", "spm"],
       "source_refs": ["sonoff_diy", "sonoff_lan"],
       "reason": "Channels, metering fields, and protection features vary by model and firmware.",
-      "state": ["switch_on", "channel_count", "power_w", "current_a", "voltage_v", "energy_kwh", "energy_today_kwh", "energy_week_kwh", "energy_month_kwh", "energy_year_kwh", "overload_active", "relay_detached"],
+      "state": ["channel_count", "power_w", "current_a", "voltage_v", "energy_kwh", "energy_today_kwh", "energy_week_kwh", "energy_month_kwh", "energy_year_kwh", "overload_active", "relay_detached"],
       "events": ["switch.changed", "power.threshold_crossed", "energy.updated", "overload.detected"],
       "conditions": ["is_on", "power_threshold", "current_threshold", "voltage_threshold", "energy_threshold", "overload_is_active"],
       "actions": ["turn_on", "turn_off", "toggle", "set_channels", "set_inching", "set_power_on_state", "set_relay_detached", "set_overload_protection"]

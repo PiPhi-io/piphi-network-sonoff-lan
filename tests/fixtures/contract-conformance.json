@@ -47,6 +47,7 @@
       "body": {
         "id": "demo-device",
         "host": "127.0.0.1",
+        "diy_device_id": "100000140e",
         "alias": "Demo Device"
       },
       "required_any_keys": [
